@@ -7,11 +7,11 @@ $(document).ready(function() {
 
   $("input:first").keyup(function() {
     student_name = $(this).val().toUpperCase();
-  }).keyup();
+  }); // can add .keyup() for live results
 
   $("input[id][name$='father']").keyup(function() {
     father_name = $(this).val().toUpperCase();
-  }).keyup();
+  });
 
 // roll number
 $("input[id][name$='number']").keyup(function() {
@@ -19,7 +19,7 @@ $("input[id][name$='number']").keyup(function() {
 }).keyup();
 $("input[id][name$='school']").keyup(function() {
   school_name = $(this).val().toUpperCase();
-}).keyup();
+});
 
     $("form").submit(function(){
       var query = '';
