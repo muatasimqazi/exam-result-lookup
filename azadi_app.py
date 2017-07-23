@@ -1,12 +1,17 @@
-from flask import Flask, render_template, url_for, flash
+from flask import Flask, render_template, request, url_for, flash
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['POST', 'GET'])
+@app.route('/index', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+
+    results = 'matric'
+    if request.method == 'POST':
+        form_a = request.form['exam-result']
+        results = request.form['results']
+    return render_template('index.html', results=results)
 
 
 if __name__ == "__main__":
