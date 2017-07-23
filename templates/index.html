@@ -1,34 +1,29 @@
 {% extends "base.html" %} {% block content %}
 
-
-
-<!-- <table id="my-table"></table> -->
-<hr>
-<!-- <table id="statistics" class="table table-condensed table-striped"></table> -->
 <div class="card card-inverse card-info mb-3 text-center">
   <div class="card-block">
     <blockquote class="card-blockquote">
-      <p>Balochistan Board of Intermediate & Secondary Education Quetta and announced the results for 9th and 10th classes  .</p>
-      <!-- <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+      <p>Balochistan Board of Intermediate and Secondary Education Quetta and announced the results for 9th and 10th classes .</p>
+
     </blockquote>
   </div>
 </div>
+
+<!-- Search Data Tabs -->
 <div class="container">
   <div class="row">
-
     <div class="col-12 col-sm-12 col-md-4 clearfix">
       <div class="card">
         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
         <div class="card-block">
           <h4 class="card-title">Education Portal</h4>
           <p class="card-text">Welcome to <b>Daily Azadi, Quetta</b>'s <span class="text-danger">Education Portal</span>. This site is still in beta. We will soon be adding new features and resources for Balochistan's students.</p>
-          <a href="www.dailyzadiquetta.com" class="btn btn-danger">Daily Azadi's News Site</a>
+          <a href="www.dailyzadiquetta.com" class="btn btn-danger">Go to Daily Azadi's News Site</a>
         </div>
       </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-8" "primary-bg">
-
+    <div class="col-12 col-sm-12 col-md-8 primary-bg">
       <div class="card text-center">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
@@ -50,7 +45,7 @@
           <div class="tab-content">
             <div class="tab-pane active" id="student-father" role="tabpanel">
 
-              <form action="">
+              <form>
                 <div class="form-group text-left">
                   <label for="student"><b>Student Name</b></label>
                   <input type="text" name="student" class="form-control" id="student" placeholder="Name">
@@ -74,14 +69,10 @@
                 </div>
                 <input type="submit" class="btn btn-primary float-right" value="Look Up" />
               </form>
-              <div class="table-responsive">
-                <table id="roll-number" class="table table-condensed table-striped"></table>
-              </div>
             </div>
 
 
             <div class="tab-pane" id="school" role="tabpanel">
-
               <form>
                 <div class="form-group text-left">
                   <label for="name-school"><b>Name of School</b> – <small class="text-danger"> (You can also search by district or union council)</small></label>
@@ -89,20 +80,14 @@
                 </div>
                 <input type="submit" class="btn btn-primary float-right" value="Look Up" />
               </form>
-
             </div>
-          </div>
 
-          <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+          </div>
         </div>
       </div>
 
     </div>
-
-
-
-  </div>
+  </div> <!-- row ends -->
 
   <div style="display: table">
     <div style="display: table-row">
@@ -120,30 +105,14 @@
                     </div>
                   </td>
                 </tr>
-
               </table>
-
-
             </div>
-          </div>
-
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-xs-12">
-                <table style="table-layout: fixed; width: 100%;">
-                  <tr>
-                    <td>
-                      <!-- <div style="overflow-x:auto;"> -->
-                      <!-- <table style="table-layout: fixed; width: 100%;" id="result-data" class="table table-condensed table-striped"></table> -->
-                      <!-- </div> -->
-              </div>
-              <!-- <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">.col-sm-5 .col-sm-offset-2 .col-md-6 .col-md-offset-0</div> -->
-            </div>
-
           </div>
         </div>
 
       </div>
 
-
-      {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}
