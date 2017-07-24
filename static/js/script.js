@@ -22,8 +22,6 @@ $(document).ready(function() {
     school_name = $(this).val().toUpperCase();
   });
 
-
-
   // High School matric exam results
   $(".matric-form").submit(function() {
 
@@ -48,11 +46,28 @@ $(document).ready(function() {
   $(".college-form").submit(function() {
 
     if (student_name != '' && father_name != '') {
-      query = "select A, C, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
+      query = "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
     } else if (roll_number != '') {
       query = "select A, C, D, E, F, G, H where A=" + parseInt(roll_number);
     } else if (college_name != '') {
       query = "select A, C, D, E, F, G, H where G like '%" + college_name + "%'";
+    } else {
+      query = '';
+    }
+    $('#result-data').sheetrock({
+      url: mySpreadsheet,
+      query: query,
+    });
+    $('#result-data').empty();
+    return false;
+  });
+
+  // University BA/BSc exam results
+  $(".university-form").submit(function() {
+    if (student_name != '' && father_name != '') {
+      query = "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
+    } else if (roll_number != '') {
+      query = "select A, C, D, E, F, G, H where A=" + parseInt(roll_number);
     } else {
       query = '';
     }
