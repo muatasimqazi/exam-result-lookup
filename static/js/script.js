@@ -59,7 +59,7 @@ $(document).ready(function() {
       query: query,
     });
     $('#result-data').empty();
-    return false;
+    return alert("done");
   });
 
   // University BA/BSc exam results

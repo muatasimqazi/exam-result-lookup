@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -7,7 +7,8 @@ app.config['DEBUG'] = True
 @app.route('/index', methods=['POST', 'GET'])
 def index():
 
-    results = 'matric'
+    # form_name = request.form["matric"]
+    results = 'Matric'
     if request.method == 'POST':
         form_a = request.form['exam-result']
         results = request.form['results']

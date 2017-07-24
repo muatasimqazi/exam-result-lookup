@@ -15,7 +15,6 @@
 
     <div class="col-12 col-sm-12 col-md-8 primary-bg">
 
-      <!-- <h4 class="card-title">Select the result you'd like to look up</h4> -->
 <div class="form-group">
       <form action="/" method="post">
 
@@ -28,10 +27,9 @@
               <div class="col-9 col-sm-9 col-lg-8">
             <select name="results" class="form-control">
               <option value="select">Select</option>
-              <option value="matric">Matric Results</option>
-              <option value="college">FA/FSc Results</option>
-              <option value="university">BA/BSc Results</option>
-              <!-- <input type="submit" value="Rate it!"/> -->
+              <option value="Matric">Matric</option>
+              <option value="FA/FSc">FA/FSc</option>
+              <option value="BA/BSc">BA/BSc</option>
             </select>
           </div>
 
@@ -42,21 +40,20 @@
           </div>
         </form>
 </div>
+<h4 class="card-title text-center text-danger">Search results for {{results}}</h4>
 
-
-
-<br><br>
+<!-- <br><br> -->
       <div class="card text-center">
 
-        {% if results  == 'matric' %}
+        {% if results  == 'Matric' %}
 
         {% include "matric-form.html" %}
 
-        {% elif results  == 'college'%}
+        {% elif results  == 'FA/FSc'%}
 
           {% include "college-form.html" %}
 
-          {% elif results  == 'university'%}
+          {% elif results  == 'BA/BSc'%}
 
             {% include "university-form.html" %}
 
