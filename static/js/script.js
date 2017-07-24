@@ -4,49 +4,45 @@ $(document).ready(function() {
   var father_name = '';
   var roll_number = '';
   var school_name = '';
+  var query = '';
 
-  $("input[id][name$='student']").keyup(function() {
+  $("input[name='student']").keyup(function() {
     student_name = $(this).val().toUpperCase();
   }); // can add .keyup() for live results
 
-  $("input[id][name$='father']").keyup(function() {
+  $("input[name='father']").keyup(function() {
     father_name = $(this).val().toUpperCase();
   });
 
 // roll number
-$("input[id][name$='number']").keyup(function() {
-  roll_number = $(this).val().toUpperCase();
-}).keyup();
-$("input[id][name$='school']").keyup(function() {
+$("input[name='roll']").keyup(function() {
+  roll_number = $(this).val();
+});
+$("input[name='school']").keyup(function() {
   school_name = $(this).val().toUpperCase();
 });
 
-  $("#matric-btn").click(function() {
-      $("#matric-form").submit(function() {
-        alert("yes");
+
+
+// High Schoo matric exam results
+
+      $(".matric-form").submit(function() {
+        if (student_name != '' && father_name != '') {
+          query = "select A, C, D, E, F, G, H where C="+ "\"" + student_name + "\" and D="+ "\"" + father_name + "\"";
+        } else if (roll_number != '') {
+          query = "select A, C, D, E, F, G, H where A="+ parseInt(roll_number);
+        } else if(school_name != '') {
+          query = "select A, C, D, E, F, G, H where G like '%"+ school_name +"%'";
+        } else {
+          query = '';
+        }
+        $('#result-data').sheetrock({
+          url: mySpreadsheet,
+          query: query,
+        });
+        $('#result-data').empty();
+        return false;
       });
-  });
-    $("form").submit(function(){
-      var query = '';
-      if (student_name != '') {
-        query = "select A, C, D, E, F, G, H where C="+ "\"" + student_name + "\" and D="+ "\"" + father_name + "\"";
-      } else if (roll_number != '') {
-        query = "select A, C, D, E, F, G, H where A="+ roll_number;
-      } else if(school_name != '') {
-        query = "select A, C, D, E, F, G, H where G like '%"+ school_name +"%'";
-      } else {
-        query = '';
-      }
-      $('#result-data').sheetrock({
-        url: mySpreadsheet,
-        query: query,
-      });
-      $('#result-data').empty();
-      return false;
-     });
-
-
-
 
 
 });
