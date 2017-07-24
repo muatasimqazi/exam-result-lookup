@@ -79,5 +79,15 @@ $(document).ready(function() {
     return false;
   });
 
+// var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1qT1LyvoAcb0HTsi2rHBltBVpUBumAUzT__rhMvrz5Rk/edit#gid=0';
+  // Compile the Handlebars template for HR leaders.
+  var HRTemplate = Handlebars.compile($('#hr-template').html());
 
+  // Load top five HR leaders.
+  $('#hr').sheetrock({
+    url: mySpreadsheet,
+    query: "select A, C",
+    fetchSize: 5,
+    rowTemplate: HRTemplate
+  });
 });
