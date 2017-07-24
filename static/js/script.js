@@ -14,35 +14,55 @@ $(document).ready(function() {
     father_name = $(this).val().toUpperCase();
   });
 
-// roll number
-$("input[name='roll']").keyup(function() {
-  roll_number = $(this).val();
-});
-$("input[name='school']").keyup(function() {
-  school_name = $(this).val().toUpperCase();
-});
+  // roll number
+  $("input[name='roll']").keyup(function() {
+    roll_number = $(this).val();
+  });
+  $("input[name='school']").keyup(function() {
+    school_name = $(this).val().toUpperCase();
+  });
 
 
 
-// High Schoo matric exam results
+  // High School matric exam results
+  $(".matric-form").submit(function() {
 
-      $(".matric-form").submit(function() {
-        if (student_name != '' && father_name != '') {
-          query = "select A, C, D, E, F, G, H where C="+ "\"" + student_name + "\" and D="+ "\"" + father_name + "\"";
-        } else if (roll_number != '') {
-          query = "select A, C, D, E, F, G, H where A="+ parseInt(roll_number);
-        } else if(school_name != '') {
-          query = "select A, C, D, E, F, G, H where G like '%"+ school_name +"%'";
-        } else {
-          query = '';
-        }
-        $('#result-data').sheetrock({
-          url: mySpreadsheet,
-          query: query,
-        });
-        $('#result-data').empty();
-        return false;
-      });
+    if (student_name != '' && father_name != '') {
+      query = "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
+    } else if (roll_number != '') {
+      query = "select A, C, D, E, F, G, H where A=" + parseInt(roll_number);
+    } else if (school_name != '') {
+      query = "select A, C, D, E, F, G, H where G like '%" + school_name + "%'";
+    } else {
+      query = '';
+    }
+    $('#result-data').sheetrock({
+      url: mySpreadsheet,
+      query: query,
+    });
+    $('#result-data').empty();
+    return false;
+  });
+
+  // College FA/FSc exam results
+  $(".college-form").submit(function() {
+
+    if (student_name != '' && father_name != '') {
+      query = "select A, C, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
+    } else if (roll_number != '') {
+      query = "select A, C, D, E, F, G, H where A=" + parseInt(roll_number);
+    } else if (college_name != '') {
+      query = "select A, C, D, E, F, G, H where G like '%" + college_name + "%'";
+    } else {
+      query = '';
+    }
+    $('#result-data').sheetrock({
+      url: mySpreadsheet,
+      query: query,
+    });
+    $('#result-data').empty();
+    return false;
+  });
 
 
 });

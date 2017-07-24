@@ -7,7 +7,7 @@
       <a class="nav-link" data-toggle="tab" href="#roll" role="tab">Roll No</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#school" role="tab">College</a>
+      <a class="nav-link" data-toggle="tab" href="#college" role="tab">College</a>
     </li>
   </ul>
 </div>
@@ -18,40 +18,39 @@
   <div class="tab-content">
     <div class="tab-pane active" id="student-father" role="tabpanel">
 <h1>{{rating}}</h1>
-      <form id="college-form">
+      <form class="college-form">
         <div class="form-group text-left">
           <label for="student"><b>Student Name</b></label>
           <input type="text" name="student" class="form-control" id="student" placeholder="Name">
         </div>
         <div class="form-group text-left">
-          <label for="father-name"><b>Father Name</b></label>
-          <input type="text" class="form-control" id="father-name" name="name-father" placeholder="Father's Name">
+          <label for="father"><b>Father Name</b></label>
+          <input type="text" class="form-control" id="father-name" name="father" placeholder="Father's Name">
         </div>
-        <input type="submit" id="college-btn" class="btn btn-primary float-right" value="Look Up" />
-
+        <input type="submit" class="btn btn-primary float-right college-btn" value="Look Up" />
       </form>
       <br>
 
     </div>
     <div class="tab-pane" id="roll" role="tabpanel">
 
-      <form>
+      <form class="college-form">
         <div class="form-group text-left">
-          <label for="roll-number"><b>Roll No.</b></label>
-          <input type="text" class="form-control" id="roll-number" name="roll-number" placeholder="Roll No">
+          <label for="roll"><b>Roll No.</b></label>
+          <input type="text" class="form-control" id="roll-number" name="roll" placeholder="Roll No">
         </div>
-        <input type="submit" class="btn btn-primary float-right" value="Look Up" />
+        <input type="submit" class="btn btn-primary float-right college-btn" value="Look Up" />
       </form>
     </div>
 
 
-    <div class="tab-pane" id="school" role="tabpanel">
-      <form>
+    <div class="tab-pane" id="college" role="tabpanel">
+      <form class="college-form">
         <div class="form-group text-left">
-          <label for="name-school"><b>Name of College</b></label>
-          <input type="text" class="form-control" id="name-school" name="name-school" placeholder="College Name">
+          <label for="college"><b>Name of College</b> – <small class="text-danger"> (You can also search by district or union council)</small></label>
+          <input type="text" class="form-control" id="name-college" name="college" placeholder="College Name">
         </div>
-        <input type="submit" class="btn btn-primary float-right" value="Look Up" />
+        <input type="submit" class="btn btn-primary float-right college-btn" value="Look Up" />
       </form>
     </div>
 
