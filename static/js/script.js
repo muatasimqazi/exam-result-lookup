@@ -5,7 +5,7 @@ $(document).ready(function() {
   var roll_number = '';
   var school_name = '';
 
-  $("input:first").keyup(function() {
+  $("input[id][name$='student']").keyup(function() {
     student_name = $(this).val().toUpperCase();
   }); // can add .keyup() for live results
 
@@ -21,6 +21,11 @@ $("input[id][name$='school']").keyup(function() {
   school_name = $(this).val().toUpperCase();
 });
 
+  $("#matric-btn").click(function() {
+      $("#matric-form").submit(function() {
+        alert("yes");
+      });
+  });
     $("form").submit(function(){
       var query = '';
       if (student_name != '') {
@@ -29,6 +34,8 @@ $("input[id][name$='school']").keyup(function() {
         query = "select A, C, D, E, F, G, H where A="+ roll_number;
       } else if(school_name != '') {
         query = "select A, C, D, E, F, G, H where G like '%"+ school_name +"%'";
+      } else {
+        query = '';
       }
       $('#result-data').sheetrock({
         url: mySpreadsheet,

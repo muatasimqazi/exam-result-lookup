@@ -18,16 +18,16 @@
   <div class="tab-content">
     <div class="tab-pane active" id="student-father" role="tabpanel">
 <h1>{{rating}}</h1>
-      <form>
+      <form id="matric-form">
         <div class="form-group text-left">
           <label for="student"><b>Student Name</b></label>
-          <input type="text" name="student" class="form-control" id="student" placeholder="Name">
+          <input type="text" name="name-student" class="form-control" id="student" placeholder="Name">
         </div>
         <div class="form-group text-left">
           <label for="father-name"><b>Father Name</b></label>
           <input type="text" class="form-control" id="father-name" name="name-father" placeholder="Father's Name">
         </div>
-        <input type="submit" class="btn btn-primary float-right" value="Look Up" />
+        <input id="matric-btn" type="submit" class="btn btn-primary float-right" value="Look Up" />
 
       </form>
       <br>
