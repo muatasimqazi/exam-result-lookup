@@ -86,8 +86,27 @@ $(document).ready(function() {
   // Load top five HR leaders.
   $('#hr').sheetrock({
     url: mySpreadsheet,
-    query: "select A, C",
+    query: "select A, C, D, E, F, G, H where E is not null order by E desc",
     fetchSize: 5,
     rowTemplate: HRTemplate
   });
+
+
+
+
+  // admin
+  $("#mytable #checkall").click(function () {
+        if ($("#mytable #checkall").is(':checked')) {
+            $("#mytable input[type=checkbox]").each(function () {
+                $(this).prop("checked", true);
+            });
+
+        } else {
+            $("#mytable input[type=checkbox]").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+
+    $("[data-toggle=tooltip]").tooltip();
 });
