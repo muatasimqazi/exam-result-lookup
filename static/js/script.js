@@ -1,5 +1,12 @@
+
+function result_data(a) {
+  var mySpreadsheet = a + '#gid=0';           // The function returns the product of p1 and p2
+  console.log(a);
+
+
+
 $(document).ready(function() {
-  var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1UuEJr1ITmVAjBrQMtIkUchpl6b-42JfFbJp4QFxCS74/edit?usp=sharing#gid=0';
+  // var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1UuEJr1ITmVAjBrQMtIkUchpl6b-42JfFbJp4QFxCS74/edit?usp=sharing#gid=0';
   var student_name = '';
   var father_name = '';
   var roll_number = '';
@@ -110,3 +117,4 @@ $(document).ready(function() {
 
     $("[data-toggle=tooltip]").tooltip();
 });
+}

@@ -10,4 +10,16 @@
 </div>
 
 {% include "forms.html" %}
+
+{% for exam in exam_results %}
+<h1>{{exam.batch}}</h1>
+  <p>{{exam.url}}</p>
+
+{% endfor %}
+
+{% endblock %}
+{% block codes %}
+<script>
+   result_data('{{ exam_results[0].url }}');
+</script>
 {% endblock %}

@@ -1,6 +1,26 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+
+{% block title %} Admin {% endblock %}
+{% block custom %}
+{% if not session.username %}
+<li class="nav-item">
+  <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+</li>
+  {% else %}
+<li class="nav-item active">
+  <a class="nav-link" href="/logout">Logo Out</a>
+</li>
+{% endif %}
+
+  <li class="nav-item active">
+    <a class="nav-link" href="/new-result">New Result</a>{% endblock %}
+</li>
+{% block content %}
 
 <div class="container">
+
+{{entry.title}}
+
   <div class="row">
     <div class="col-md-12">
       <h4>Result Database</h4>
@@ -8,29 +28,52 @@
         <table id="mytable" class="table table-bordred table-striped">
           <thead>
             <th><input type="checkbox" id="checkall" /></th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Contact</th>
+            <th>Exam</th>
+            <th>Class</th>
+            <th>Batch</th>
+            <th>Year</th>
+            <th>Url</th>
+            <th>User</th>
+            <th>Date</th>
             <th>Edit</th>
             <th>Delete</th>
           </thead>
           <tbody>
-            <tr>
-              <td><input type="checkbox" class="checkthis" /></td>
-              <td>Mohsin</td>
-              <td>Irshad</td>
-              <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-              <td>isometric.mohsin@gmail.com</td>
-              <td>+923335586757</td>
-              <td>
-                <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"><span><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></span></button></p>
-              </td>
-              <td>
-                <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span><i class="fa fa-trash-o" aria-hidden="true"></i></span></button></p>
-              </td>
-            </tr>
+
+              {% for entry in entries %}
+              <tr>
+                <td><input type="checkbox" class="checkthis" /></td>
+                <td>{{entry.title}}</td>
+                <td>{{entry.batch}}</td>
+                <td>{{entry.term}}</td>
+                <td>{{entry.year}}</td>
+                <td>{{entry.url}}</td>
+                <td>{{entry.owner.username}}</td>
+                <td>{{entry.date.strftime('%B %d, %Y')}}</td>
+                <form  method="get">
+                <td>
+
+
+
+                    <a href="{{entry.id}}"><button class="btn btn-primary btn-xs" name="edit" value="{{entry.id}}"><span><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></span> Edit</button></a>
+
+                  <!-- <a  data-toggle="modal" href="#edit" data-parent="#accordion">Edit</a> -->
+                    <!-- <div id="aa" class="collapse in">aaaaaaaaaaaaaaaaaaaggggggggg hhhhhhhhhh iii ii jjjjjjj kkkkkkk lllllllllll lllllllll mmmmmm mmmm ooooop</div> -->
+
+                  <!-- <p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" onclick="location.href='/entry?id={{entry.id}}'"><span><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></span></button></p> -->
+                </td>
+                <td>
+                  <button class="btn btn-danger btn-xs" name="delete" value="{{entry.id}}"><span><i class="fa fa-trash-o" aria-hidden="true"></i></span> Delete</button>
+
+                  <!-- <p data-placement="top" data-toggle="tooltip" title="Delete"><a href="/entry?id={{entry.id}}"  data-toggle="modal" data-target="#edit"><button class="btn btn-danger btn-xs"><span><i class="fa fa-trash-o" aria-hidden="true"></i></span> Delete</button></a></button></p> -->
+
+                  <!-- <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span><i class="fa fa-trash-o" aria-hidden="true"></i></span></button></p> -->
+                </td>
+              </tr>
+              {% endfor %}
+
+
+
           </tbody>
         </table>
       </div>
@@ -39,35 +82,6 @@
 </div>
 
 
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-        <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <input class="form-control " type="text" placeholder="Mohsin">
-        </div>
-        <div class="form-group">
-
-          <input class="form-control " type="text" placeholder="Irshad">
-        </div>
-        <div class="form-group">
-          <textarea rows="2" class="form-control" placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
-
-
-        </div>
-      </div>
-      <div class="modal-footer ">
-        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
 
 
 
@@ -92,31 +106,23 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-
-
-{% if entry_id %}
-<h1>Entry</h1>
-<header>
-  <h2>{{entry.title}}</h2>
-  <small><span class="red">Published on</span> {{entry.date.strftime('%B %d, %Y')}} <span class="red">by</span> <b><a href="?user={{entry.owner.username}}">{{entry.owner.username}}</a></b></small>
-  <hr>
-</header>
-<p>{{entry.body}}</p>
-
-{% elif entries %}
-<h1>Blog Posts:</h1> {% for entry in entries %}
-<header>
-  <h2><a href="/entry?id={{entry.id}}">{{entry.title}}</a></h2>
-
-</header>
-<p>{{entry.body}}</p>
-
-<footer>
-  <small><span class="red">Published on</span> {{entry.date.strftime('%B %d, %Y')}} <span class="red">by</span> <b><a href="?user={{entry.owner.username}}">{{entry.owner.username}}</a></b></small>
-
-  <hr>
-</footer>
-
-{% endfor %}
-</article>
-{% endif %} {% endblock %}
+<p>Hello, <span id="username"></span></p>
+<script type=text/javascript>
+  $(function() {
+    $('a#calculate').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        $("#result").text(data.result);
+      });
+      return false;
+    });
+  });
+</script>
+<h1>jQuery Example</h1>
+<p><input type=text size=5 name=a> +
+   <input type=text size=5 name=b> =
+   <span id=result>?</span>
+<p><a href=# id=calculate>calculate server side</a>
+{% endblock %}

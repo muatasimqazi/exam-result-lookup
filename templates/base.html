@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
+    <title>{% block title %}{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
@@ -24,15 +24,10 @@
           <li class="nav-item active">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
-          {% if not session.username %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-          </li>
-            {% else %}
-          <li class="nav-item active">
-            <a class="nav-link" href="/logout">Logo Out</a></a>
-          </li>
-          {% endif %}
+
+            {% block custom %}{% endblock %}
+
+
         </ul>
       </div>
     </nav>
@@ -60,5 +55,11 @@
 <script src="{{ url_for('static', filename='js/script.js')}}">
 
 </script>
+
+{% block codes %}
+
+{% endblock %}
+
+
   </body>
 </html>

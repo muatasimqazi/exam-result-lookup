@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.mysql import YEAR
 from datetime import datetime
 
 app = Flask(__name__)
@@ -15,13 +16,19 @@ class Entry(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    body = db.Column(db.String(20000))
+    batch = db.Column(db.Enum('9th', '10th', 'FA/FSc.', 'BA/BSc.', 'MA/MSc.'))
+    term = db.Column(db.Enum('Yearly', 'Bi-annual'))
+    year = db.Column(db.String(4))
+    url = db.Column(db.String(20000))
     date = db.Column(db.DateTime)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, body, owner, date=None):
+    def __init__(self, title, batch, term, year, url, owner, date=None):
         self.title = title
-        self.body = body
+        self.batch = batch
+        self.term = term
+        self.year = year
+        self.url = url
         self.owner = owner
         if date is None:
             date = datetime.utcnow()
@@ -44,21 +51,58 @@ def require_login():
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 
-@app.route('/entry')
-@app.route('/admin')
+@app.route('/entry', methods=['post', 'get'])
+@app.route('/admin', methods=['post', 'get'])
 def admin():
 
+    delete = ''
+
+    # entry_id = ''
+    if request.args.get('edit'):
+        entry_id = request.args.get('edit')
+        return redirect('/admin/edit?id=' + entry_id)
+    elif request.args.get('delete'):
+        entry_id = request.args.get('delete')
+        delete_entry = Entry.query.filter_by(id=entry_id).first();
+        db.session.delete(delete_entry)
+        db.session.commit();
+        # return "<h1>Let's delete</h1>"
     if 'username' not in session:
         return redirect('/login')
 
-    entry_id = request.args.get('id')
+
+    entry_id = 1#request.args.get('id')
     entry = ''
     if  entry_id:
         entry = Entry.query.filter_by(id=entry_id).first()
 
     username = session['username']
     entries = Entry.query.all()
+
+    # if delete:
+        # return render_template('edit.html', entry=entry, entries=entries)
+
     return render_template('admin.html', username=username, entry_id=entry_id, entry=entry, entries=entries)
+
+@app.route('/admin/edit', methods=['POST', 'GET'])
+def edit():
+
+    entry_id = request.args.get('id')
+    entry = Entry.query.filter_by(id=entry_id).first()
+
+    if request.method == 'POST':
+        udpated_entry = Entry.query.filter_by(id=entry_id).first()
+        udpated_entry.title = request.form['entry-title']
+        udpated_entry.batch = request.form['entry-batch']
+        udpated_entry.term = request.form['entry-term']
+        udpated_entry.year = request.form['entry-year']
+        udpated_entry.url = request.form['entry-url']
+        db.session.commit()
+        return redirect('/admin')
+
+
+
+    return render_template('edit.html', entry=entry)
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
@@ -122,34 +166,46 @@ def logout():
     del session['username']
     return redirect('/')
 
-@app.route('/new-entry', methods=['GET', 'POST'])
+@app.route('/new-result', methods=['GET', 'POST'])
 def create_newpost():
     error_title = ''
     error_body = ''
-
+    entry_owner = User.query.filter_by(username=session['username']).first()
     if request.method == 'POST':
-        owner = User.query.filter_by(username=session['username']).first()
+
+
         entry_title = request.form['entry-title']
+        entry_batch = request.form['entry-batch']
+        entry_term = request.form['entry-term']
+        entry_year = request.form['entry-year']
+        entry_url = request.form['entry-url']
+
+        entry_post = Entry(entry_title, entry_batch, entry_term, entry_year, entry_url, entry_owner)
+        db.session.add(entry_post)
+        db.session.commit()
+        entry_id = entry_post.id;
+        return redirect("/admin")
+
         if not entry_title:
             error_title = "Please fill in the title"
         elif len(entry_title) > 120:
             error_title = "Please take a shorter title"
         else:
-            entry_body = request.form['entry-body']
-            if not entry_body:
+            entry_batch = request.form['entry-class']
+            if not entry_batch:
                 error_body = 'Please fill in the body'
 
-            elif len(entry_body) > 20000:
+            elif len(entry_batch) > 20000:
                 error_body = 'Your entry post exceeds the limit'
 
             else:
-                entry_post = Entry(entry_title, entry_body, owner)
+                entry_post = Entry(entry_title, entry_batch, entry_term, entry_year, entry_url, owner)
                 db.session.add(entry_post)
                 db.session.commit()
                 entry_id = entry_post.id;
                 return redirect("/admin")
 
-    return render_template('new-entry.html', error_title=error_title, error_body=error_body, title="New Entry Post")
+    return render_template('new-result.html', error_title=error_title, error_body=error_body, title="New Entry Post")
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -158,10 +214,20 @@ def index():
 
     # form_name = request.form["matric"]
     results = 'Matric'
+        # batch = db.Column(db.Enum('9th', '10th', 'FA/FSs.', 'BA/BSc.', 'MA/MSc.'))
+    exam_ninth = Entry.query.filter_by(batch='9th').first();
+    exam_tenth = Entry.query.filter_by(batch='10th').first();
+    exam_fa_fsc = Entry.query.filter_by(batch='FA/FSc.').first();
+    exam_ba_bsc = Entry.query.filter_by(batch='BA/BSc.').first();
+    exam_ma_msc = Entry.query.filter_by(batch='MA/MSc.').first();
+
+    exam_results = [exam_ninth, exam_tenth, exam_fa_fsc, exam_ba_bsc, exam_ma_msc]
+    # obj = Entry.query(ObjectRes).order_by(ObjectRes.id.desc()).first()
+    # url_name = entry.url
     if request.method == 'POST':
         form_a = request.form['exam-result']
         results = request.form['results']
-    return render_template('index.html', results=results)
+    return render_template('index.html', results=results, exam_results=exam_results)
 
 
 if __name__ == "__main__":
