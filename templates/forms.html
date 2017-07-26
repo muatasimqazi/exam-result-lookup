@@ -1,19 +1,16 @@
-
 <!-- Search Data Tabs -->
 <div class="container">
   <div class="row">
     <div class="col-12 col-sm-12 col-md-4 clearfix">
       <div class="card">
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
         <div class="card-block">
           <h4 class="card-title">Education Portal</h4>
           <p class="card-text">Welcome to <b>Daily Azadi, Quetta</b>'s <span class="text-danger">Education Portal</span>. This site is still in beta. We will soon be adding new features and resources for Balochistan's students.</p>
           <a href="http://dailyazadiquetta.com/" class="btn btn-danger">Go to Daily Azadi's News Site</a>
         </div>
       </div>
-<br><br>
+      <br><br>
       <div class="card">
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
         <div class="card-block">
           <h5 class="card-title">{{entry.batch}} ({{entry.term}} {{entry.year}}) Top Scorers:</h5>
           <hr>
@@ -22,9 +19,7 @@
             <ol id="hr">
               <script id="hr-template" type="text/x-handlebars-template">
                 <li>
-                  <strong>{{cells.Name}}</strong>, {{cells.FatherName}},
-                  {{cells.RollNo}},
-                  {{cells.Marks}}
+                  <strong>{{cells.Name}}</strong>, {{cells.FatherName}}, {{cells.RollNo}}, {{cells.Marks}}
                 </li>
               </script>
             </ol>
@@ -32,44 +27,34 @@
           </div>
         </div>
       </div>
-
+      <hr class="hidden-sm-up">
     </div>
-
-    <div class="col-12 col-sm-12 col-md-8 primary-bg">
-<div class="form-group">
-      <form action="/" method="post">
-
-
-          <label for="result">
+<div class="col-12 col-sm-12 col-md-8 primary-bg">
+  <div class="form-group">
+    <form action="/" method="post">
+      <label for="result">
             <input type="hidden" name="exam-result"/>
             <b>Look Up:</b>
             </label>
-            <div class="row">
-              <div class="col-9 col-sm-9 col-lg-8">
-            <select name="results" class="form-control">
+      <div class="row">
+        <div class="col-9 col-sm-9 col-lg-8">
+          <select name="results" class="form-control">
               <option value="{{entry.batch}}" selected>{{entry.batch}}</option>
               <option value="Matric">Matric</option>
               <option value="FA/FSc">FA/FSc.</option>
               <option value="BA/BSc">BA/BSc.</option>
               <option value="MA/MSc">MA/MSc.</option>
             </select>
-          </div>
+        </div>
 
-          <div class="col-3 col-sm-3 col-lg-2">
-
-            <button type="submit" class="btn btn-success float-right">Submit</button>
-          </div>
-          </div>
-        </form>
-</div>
-<p class="card-title text-center text-danger">Search results for
-
-{% if entry.batch == '9th' or entry.batch == '10th' %}
- <b>Matric</b>
-{% else %}
-  <b>{{entry.batch}}</b>
-{% endif %}
-  ({{entry.term}} {{entry.year}}) examination</p>
+        <div class="col-3 col-sm-3 col-lg-2">
+          <button type="submit" class="btn btn-success float-right">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<p class="card-title text-center text-danger">Search results for {% if entry.batch == '9th' or entry.batch == '10th' %} <b>Matric</b> {% else %}
+  <b>{{entry.batch}}</b> {% endif %} ({{entry.term}} {{entry.year}}) examination</p>
 
       <div class="card text-center">
          {% if entry.batch == '9th' or entry.batch == '10th' or results == 'Matric' %}
@@ -81,35 +66,33 @@
          {% elif entry.batch == 'MA/MSc.' or results == 'MA/MSc'%}
            {% include "graduate-form.html" %}
         {% else %}
-        {{entry.title}}
         <p class="text-danger">Result Form currently not avaialble</p>
    {% endif %}
-      </div> <!-- card finish -->
-
+     </div> <!-- card ends -->
     </div>
   </div> <!-- row ends -->
 
-  <div style="display: table">
-    <div style="display: table-row">
-      <div style="display: table-cell">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-xs-12">
-              <table style="table-layout: fixed; width: 100%;">
-                <tr>
-                  <td>
-                    <div style="width: 100%; overflow-x: auto;">
-                      <!-- Displays data -->
-                      <table style="width: 100%;" id="result-data" class="table table-condensed table-striped"></table>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+<div style="display: table">
+  <div style="display: table-row">
+    <div style="display: table-cell">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12">
+            <table style="table-layout: fixed; width: 100%;">
+              <tr>
+                <td>
+                  <div style="width: 100%; overflow-x: auto;">
+                    <!-- Displays data -->
+                    <table style="width: 100%;" id="result-data" class="table table-condensed table-striped"></table>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 </div>
