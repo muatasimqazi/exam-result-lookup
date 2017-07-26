@@ -11,22 +11,31 @@
           <a href="http://dailyazadiquetta.com/" class="btn btn-danger">Go to Daily Azadi's News Site</a>
         </div>
       </div>
+<br><br>
+      <div class="card">
+        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+        <div class="card-block">
+          <h5 class="card-title">{{entry.batch}} ({{entry.term}} {{entry.year}}) Top Scorers:</h5>
+          <hr>
+          <div class="card-text">
+            {% raw %}
+            <ol id="hr">
+              <script id="hr-template" type="text/x-handlebars-template">
+                <li>
+                  <strong>{{cells.Name}}</strong>, {{cells.FatherName}},
+                  {{cells.RollNo}},
+                  {{cells.Marks}}
+                </li>
+              </script>
+            </ol>
+            {% endraw %}
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="col-12 col-sm-12 col-md-8 primary-bg">
-
-{% raw %}
-      <h4>Exam Top Scorers:</h4>
-<ol id="hr">
-  <script id="hr-template" type="text/x-handlebars-template">
-    <li>
-      <strong>{{cells.Name}}</strong>, {{cells.FatherName}},
-      {{cells.RollNo}},
-      {{cells.Marks}}
-    </li>
-  </script>
-</ol>
-{% endraw %}
 <div class="form-group">
       <form action="/" method="post">
 
@@ -38,10 +47,11 @@
             <div class="row">
               <div class="col-9 col-sm-9 col-lg-8">
             <select name="results" class="form-control">
-              <option value="select">Select</option>
+              <option value="{{entry.batch}}" selected>{{entry.batch}}</option>
               <option value="Matric">Matric</option>
-              <option value="FA/FSc">FA/FSc</option>
-              <option value="BA/BSc">BA/BSc</option>
+              <option value="FA/FSc">FA/FSc.</option>
+              <option value="BA/BSc">BA/BSc.</option>
+              <option value="MA/MSc">MA/MSc.</option>
             </select>
           </div>
 
@@ -52,26 +62,28 @@
           </div>
         </form>
 </div>
-<h4 class="card-title text-center text-danger">Search results for {{results}}</h4>
+<p class="card-title text-center text-danger">Search results for
 
-<!-- <br><br> -->
+{% if entry.batch == '9th' or entry.batch == '10th' %}
+ <b>Matric</b>
+{% else %}
+  <b>{{entry.batch}}</b>
+{% endif %}
+  ({{entry.term}} {{entry.year}}) examination</p>
+
       <div class="card text-center">
-
-        {% if results  == 'Matric' %}
-
-        {% include "matric-form.html" %}
-
-        {% elif results  == 'FA/FSc'%}
-
-          {% include "college-form.html" %}
-
-          {% elif results  == 'BA/BSc'%}
-
-            {% include "university-form.html" %}
-
-        {% endif %}
-
-
+         {% if entry.batch == '9th' or entry.batch == '10th' or results == 'Matric' %}
+           {% include "matric-form.html" %}
+         {% elif entry.batch == 'FA/FSc.' or results == 'FA/FSc'%}
+           {% include "college-form.html" %}
+         {% elif entry.batch == 'BA/BSc.' or results == 'BA/BSc'%}
+           {% include "undegraduate-form.html" %}
+         {% elif entry.batch == 'MA/MSc.' or results == 'MA/MSc'%}
+           {% include "graduate-form.html" %}
+        {% else %}
+        {{entry.title}}
+        <p class="text-danger">Result Form currently not avaialble</p>
+   {% endif %}
       </div> <!-- card finish -->
 
     </div>
@@ -89,7 +101,6 @@
                     <div style="width: 100%; overflow-x: auto;">
                       <!-- Displays data -->
                       <table style="width: 100%;" id="result-data" class="table table-condensed table-striped"></table>
-
                     </div>
                   </td>
                 </tr>
@@ -97,9 +108,8 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
+
 </div>

@@ -1,22 +1,15 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
 
+{% block content %}
 <div class="card card-inverse card-info mb-3 text-center">
   <div class="card-block">
     <blockquote class="card-blockquote">
-      <p>Balochistan Board of Intermediate and Secondary Education Quetta and announced the results for 9th and 10th classes .</p>
-
-    </blockquote>
+      <h4>{{entry.batch}} ({{entry.term}}) {{entry.year}} Result Announced</h4>
+      <p>{{entry.title}}</p>
+      </blockquote>
   </div>
 </div>
-
 {% include "forms.html" %}
-
-{% for exam in exam_results %}
-<h1>{{exam.batch}}</h1>
-  <p>{{exam.url}}</p>
-
-{% endfor %}
-
 {% endblock %}
 {% block codes %}
 <script>

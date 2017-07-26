@@ -77,7 +77,7 @@ def admin():
         entry = Entry.query.filter_by(id=entry_id).first()
 
     username = session['username']
-    entries = Entry.query.all()
+    entries = Entry.query.order_by(Entry.date.desc()).all()
 
     # if delete:
         # return render_template('edit.html', entry=entry, entries=entries)
@@ -213,7 +213,7 @@ def create_newpost():
 def index():
 
     # form_name = request.form["matric"]
-    results = 'Matric'
+    results = ''
         # batch = db.Column(db.Enum('9th', '10th', 'FA/FSs.', 'BA/BSc.', 'MA/MSc.'))
     exam_ninth = Entry.query.filter_by(batch='9th').first();
     exam_tenth = Entry.query.filter_by(batch='10th').first();
@@ -227,7 +227,8 @@ def index():
     if request.method == 'POST':
         form_a = request.form['exam-result']
         results = request.form['results']
-    return render_template('index.html', results=results, exam_results=exam_results)
+    entry = Entry.query.order_by(Entry.date.desc()).first()
+    return render_template('index.html', results=results, exam_results=exam_results, entry=entry)
 
 
 if __name__ == "__main__":
