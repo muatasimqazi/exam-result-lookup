@@ -2,20 +2,31 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-
+<p id="mytag1"></p>
+<p id="mytag2"></p>
 <br>
 <div class="card card-inverse card-success mb-3 text-center">
   <div class="card-block">
     <blockquote class="card-blockquote">
-      <h4>{{entry.batch}} ({{entry.term}}) {{entry.year}} Result Announced</h4>
+      <h5>{% if entry.batch == '9th' or entry.batch == '10th' %} Matric
+      {% else %}{{entry.batch}} {% endif %} ({{entry.term}}) {{entry.year}} Result Announced</h5>
       <p>{{entry.title}}</p>
       </blockquote>
   </div>
 </div>
 {% include "forms.html" %}
+<br><br>
 {% endblock %}
+
 {% block codes %}
+
 <script>
-   result_data('{{ exam_results[0].url }}');
+var exam = {{ exam | tojson }};
+// console.log(data);
+  // alert(data.ninth)
+
+  //  result_data('{{ exam_results[0].url }}');
+  result_data(exam);
 </script>
+
 {% endblock %}

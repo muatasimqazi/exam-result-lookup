@@ -163,8 +163,6 @@ def create_newpost():
     error_body = ''
     entry_owner = User.query.filter_by(username=session['username']).first()
     if request.method == 'POST':
-
-
         entry_title = request.form['entry-title']
         entry_batch = request.form['entry-batch']
         entry_term = request.form['entry-term']
@@ -204,11 +202,11 @@ def create_newpost():
 def index():
 
     results = ''
-    exam_ninth = Entry.query.filter_by(batch='9th').first();
-    exam_tenth = Entry.query.filter_by(batch='10th').first();
-    exam_fa_fsc = Entry.query.filter_by(batch='FA/FSc.').first();
-    exam_ba_bsc = Entry.query.filter_by(batch='BA/BSc.').first();
-    exam_ma_msc = Entry.query.filter_by(batch='MA/MSc.').first();
+    exam_ninth = Entry.query.filter_by(batch='9th').order_by(Entry.date.desc()).first_or_404()
+    exam_tenth = Entry.query.filter_by(batch='10th').order_by(Entry.date.desc()).first_or_404()
+    exam_fa_fsc = Entry.query.filter_by(batch='FA/FSc.').order_by(Entry.date.desc()).first_or_404()
+    exam_ba_bsc = Entry.query.filter_by(batch='BA/BSc.').order_by(Entry.date.desc()).first_or_404()
+    exam_ma_msc = Entry.query.filter_by(batch='MA/MSc.').order_by(Entry.date.desc()).first_or_404()
 
     exam_results = [exam_ninth, exam_tenth, exam_fa_fsc, exam_ba_bsc, exam_ma_msc]
     if request.method == 'POST':
@@ -216,7 +214,15 @@ def index():
         results = request.form['results']
 
     entry = Entry.query.order_by(Entry.date.desc()).first()
-    return render_template('index.html', results=results, exam_results=exam_results, entry=entry)
+    exam = {
+    "ninth": exam_ninth.url,
+    "tenth": exam_tenth.url,
+    "fa_fsc": exam_fa_fsc.url,
+    "ba_bsc": exam_ba_bsc.url,
+    "ma_msc": exam_ma_msc.url,
+
+    }
+    return render_template('index.html', results=results, exam_results=exam_results, entry=entry, exam=exam)
 
 if __name__ == "__main__":
     app.run()
