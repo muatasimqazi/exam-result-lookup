@@ -98,9 +98,6 @@ $(document).ready(function() {
     rowTemplate: HRTemplate
   });
 
-
-
-
   // admin
   $("#mytable #checkall").click(function () {
         if ($("#mytable #checkall").is(':checked')) {

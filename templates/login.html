@@ -11,9 +11,6 @@
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
     <span class="text-danger">{{password_error}}</span>
-    <!--<div class="checkbox">
-      <label><input type="checkbox" value="remember-me"> Remember me</label>
-    </div>-->
     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in" />
     <p>Don't have an account? <a href="{{url_for('signup')}}">Create one!</a></p>
   </form>

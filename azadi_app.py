@@ -11,7 +11,6 @@ db = SQLAlchemy(app)
 
 app.secret_key = 'X68tVVWRUg5b^qd'
 
-
 class Entry(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -56,8 +55,7 @@ def require_login():
 def admin():
 
     delete = ''
-
-    # entry_id = ''
+    entry = ''
     if request.args.get('edit'):
         entry_id = request.args.get('edit')
         return redirect('/admin/edit?id=' + entry_id)
@@ -66,21 +64,16 @@ def admin():
         delete_entry = Entry.query.filter_by(id=entry_id).first();
         db.session.delete(delete_entry)
         db.session.commit();
-        # return "<h1>Let's delete</h1>"
     if 'username' not in session:
         return redirect('/login')
 
 
-    entry_id = 1#request.args.get('id')
-    entry = ''
+    entry_id = request.args.get('id')
     if  entry_id:
         entry = Entry.query.filter_by(id=entry_id).first()
 
     username = session['username']
     entries = Entry.query.order_by(Entry.date.desc()).all()
-
-    # if delete:
-        # return render_template('edit.html', entry=entry, entries=entries)
 
     return render_template('admin.html', username=username, entry_id=entry_id, entry=entry, entries=entries)
 
@@ -99,8 +92,6 @@ def edit():
         udpated_entry.url = request.form['entry-url']
         db.session.commit()
         return redirect('/admin')
-
-
 
     return render_template('edit.html', entry=entry)
 
@@ -212,9 +203,7 @@ def create_newpost():
 @app.route('/index', methods=['POST', 'GET'])
 def index():
 
-    # form_name = request.form["matric"]
     results = ''
-        # batch = db.Column(db.Enum('9th', '10th', 'FA/FSs.', 'BA/BSc.', 'MA/MSc.'))
     exam_ninth = Entry.query.filter_by(batch='9th').first();
     exam_tenth = Entry.query.filter_by(batch='10th').first();
     exam_fa_fsc = Entry.query.filter_by(batch='FA/FSc.').first();
@@ -222,14 +211,12 @@ def index():
     exam_ma_msc = Entry.query.filter_by(batch='MA/MSc.').first();
 
     exam_results = [exam_ninth, exam_tenth, exam_fa_fsc, exam_ba_bsc, exam_ma_msc]
-    # obj = Entry.query(ObjectRes).order_by(ObjectRes.id.desc()).first()
-    # url_name = entry.url
     if request.method == 'POST':
         form_a = request.form['exam-result']
         results = request.form['results']
+
     entry = Entry.query.order_by(Entry.date.desc()).first()
     return render_template('index.html', results=results, exam_results=exam_results, entry=entry)
-
 
 if __name__ == "__main__":
     app.run()

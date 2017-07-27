@@ -1,23 +1,16 @@
-{% extends "base.html" %}
-
-{% block content %}
-
-
+{% extends "base.html" %} {% block content %}
 
 <div class="container">
 
   <form method="post">
-  <div class="form-group">
-    <label for="exampleInputEmail1"><h5>Exam</h5></label>
-    <input type="text" class="form-control" name="entry-title" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{entry.title}}">
-  </div>
-  <!-- <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div> -->
-  <div class="form-group">
-    <label for="exampleSelect1"><h5>Class</h5></label>
-    <select name="entry-batch" class="form-control" id="exampleSelect1">
+    <div class="form-group">
+      <label for="exampleInputEmail1"><h5>Exam</h5></label>
+      <input type="text" class="form-control" name="entry-title" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{entry.title}}">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleSelect1"><h5>Class</h5></label>
+      <select name="entry-batch" class="form-control" id="exampleSelect1">
       <option value="{{entry.term}}">{{entry.batch}}</option>
       <option value="9th">9th</option>
       <option value="10th">10th</option>
@@ -25,38 +18,38 @@
       <option value="BA/BSc.">BA/BSc.</option>
       <option value="MA/MSc.">MA/MSc.</option>
     </select>
-  </div>
-  <fieldset class="form-group">
-    <h5>Term</h5>
-    <div class="form-check">
-      <label class="form-check-label">
+    </div>
+    <fieldset class="form-group">
+      <h5>Term</h5>
+      <div class="form-check">
+        <label class="form-check-label">
         <input type="radio" class="form-check-input" name="entry-term" id="optionsRadios1" value="{{entry.term}}" checked>
         Yearly
       </label>
-    </div>
+      </div>
 
-    <div class="form-check">
-    <label class="form-check-label">
+      <div class="form-check">
+        <label class="form-check-label">
         <input type="radio" class="form-check-input" name="entry-term" id="optionsRadios2" value="{{entry.term}}">
         Bi-Anual
       </label>
+      </div>
+
+    </fieldset>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1"><h5>Year</h5></label>
+      <input type="number" class="form-control" name="entry-year" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{entry.year}}">
     </div>
 
-  </fieldset>
+    <div class="form-group">
+      <label for="exampleInputEmail1"><h5>Google Sheet URL</h5></label>
+      <input type="text" name="entry-url" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{entry.url}}">
+    </div>
 
-  <div class="form-group">
-    <label for="exampleInputEmail1"><h5>Year</h5></label>
-    <input type="number" class="form-control" name="entry-year" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{entry.year}}">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleInputEmail1"><h5>Google Sheet URL</h5></label>
-    <input type="text" name="entry-url" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{entry.url}}">
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <a href="/admin" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
-</form>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/admin" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+  </form>
 </div>
 
 {% endblock %}

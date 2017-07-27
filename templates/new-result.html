@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block custom %}
 <li class="nav-item active">
   <a class="nav-link" href="/admin">Results</a>{% endblock %}
@@ -14,10 +13,7 @@
     <label for="exampleInputEmail1"><h5>Exam</h5></label>
     <input type="text" class="form-control" name="entry-title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter exame name">
   </div>
-  <!-- <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div> -->
+
   <div class="form-group">
     <label for="exampleSelect1"><h5>Class</h5></label>
     <select name="entry-batch" class="form-control" id="exampleSelect1">
@@ -57,9 +53,5 @@
   <a href="/admin" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
 </form>
 </div>
-
-
-
-
 
 {% endblock %}
