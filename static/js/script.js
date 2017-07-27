@@ -1,6 +1,6 @@
 
 function result_data(exam) {
-  var mySpreadsheet = '';//exam.ninth + '#gid=0';           // The function returns the product of p1 and p2
+  var mySpreadsheet = 'https://docs.google.com/spreadsheets/d/1Sc6RJi3slTWRxkH9SQ7b4fC419l6QVkyidIx89mnqzw/edit#gid=629197283#gid=0';//exam.ninth + '#gid=0';           // The function returns the product of p1 and p2
   console.log(exam.ninth);
 
 $(document).ready(function() {
@@ -39,7 +39,7 @@ $(document).ready(function() {
       query = '';
     }
     $('#result-data').sheetrock({
-      url: exam.ninth,
+      url: exam.ninth + '#gid=0',
       query: query,
     });
     $('#result-data').empty();
@@ -58,7 +58,7 @@ $(document).ready(function() {
       query = '';
     }
     $('#result-data').sheetrock({
-      url: exam.fa_fsc,
+      url: mySpreadsheet,
       query: query,
     });
     $('#result-data').empty();
@@ -75,7 +75,7 @@ $(document).ready(function() {
       query = '';
     }
     $('#result-data').sheetrock({
-      url: exam.ba_bsc,
+      url: exam.ba_bsc + '#gid=0',
       query: query,
     });
     $('#result-data').empty();
@@ -92,7 +92,7 @@ $(document).ready(function() {
       query = '';
     }
     $('#result-data').sheetrock({
-      url: exam.ma_msc,
+      url: mySpreadsheet,
       query: query,
     });
     $('#result-data').empty();
