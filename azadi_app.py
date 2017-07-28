@@ -197,6 +197,12 @@ def create_newpost():
     return render_template('new-result.html', error_title=error_title, error_body=error_body, title="New Entry Post")
 
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/index', methods=['POST', 'GET'])
 def index():
@@ -211,7 +217,7 @@ def index():
     if request.method == 'POST':
         results = request.form['results'] #request.form['results']
         entry_url = results
-        exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first()
+        exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first_or_404()
         exam_url = exam.url
 
         return render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam)

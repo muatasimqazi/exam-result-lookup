@@ -24,6 +24,7 @@ $('#hr').sheetrock({
       url: mySpreadsheet,
       query: query
     });
+    console.log(query);
     $('#result-data').empty();
 
   }
