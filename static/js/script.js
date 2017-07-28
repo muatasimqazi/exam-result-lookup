@@ -11,13 +11,14 @@ $(document).ready(function() {
   var school_name = '';
   var query = '';
 
-  $("input[name='student']").keyup(function() {
-    student_name = $(this).val().toUpperCase();
-  }); // can add .keyup() for live results
+  $("input[name='student']").val();
+  // keyup(function() {
+    // student_name = $(this).val().toUpperCase();
+  // }); // can add .keyup() for live results
 
-  $("input[name='father']").keyup(function() {
-    father_name = $(this).val().toUpperCase();
-  });
+  $("input[name='father']").val();
+    // father_name = $(this).val().toUpperCase();
+  // });
 
   // roll number
   $("input[name='roll']").keyup(function() {
@@ -26,6 +27,7 @@ $(document).ready(function() {
   $("input[name='school']").keyup(function() {
     school_name = $(this).val().toUpperCase();
   });
+
 
   // High School matric exam results
   $(".matric-form").submit(function() {
@@ -67,22 +69,50 @@ $(document).ready(function() {
     return alert("done");
   });
 
-  // University BA/BSc exam results
-  $(".university-form").submit(function() {
-    if (student_name != '' && father_name != '') {
-      query = "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
-    } else if (roll_number != '') {
-      query = "select A, C, D, E, F, G, H where A=" + parseInt(roll_number);
-    } else {
-      query = '';
-    }
+
+
+    // University BA/BSc exam results
+    $(".university-form").submit(function() {
+      if (student_name != '' && father_name != '') {
+        query = "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
+      } else if (roll_number != '') {
+        query = "select A, C, D, E, F, G, H where A=" + parseInt(roll_number);
+      } else {
+        query = '';
+      }
+      $('#result-data').sheetrock({
+        url: mySpreadsheet,
+        query: query,
+      });
+      $('#result-data').empty();
+      console.log(query)
+      console.log(mySpreadsheet);
+      console.log('https://docs.google.com/spreadsheets/d/1AHgBxDILDpEn79fMWy6e2mRZl8itz2DjGoDA2uZSE6I/edit?usp=sharing');
+      return false;
+    });
+
+
+  // University MA/MSc exam results
+  $("#graduate-form-one").submit(function() {
     $('#result-data').sheetrock({
       url: mySpreadsheet,
-      query: query,
+      query: "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"",
     });
     $('#result-data').empty();
+    console.log(query);
     return false;
   });
+
+
+    // University MA/MSc exam results
+    $("#graduate-form-two").submit(function() {
+      $('#result-data').sheetrock({
+        url: mySpreadsheet,
+        query: "select A, C, D, E, F, G, H where A=" + parseInt(roll_number),
+      });
+      $('#result-data').empty();
+      return false;
+    });
 
 
 });

@@ -201,30 +201,29 @@ def create_newpost():
 @app.route('/index', methods=['POST', 'GET'])
 def index():
 
-
     entry = Entry.query.order_by(Entry.date.desc()).first()
     entry_url = entry.batch
 
     exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first()
 
-    results = entry.batch
+    results = entry.batch #request.args.get('results')
 
     if request.method == 'POST':
-        results = request.form['results']
+        results = request.form['results'] #request.form['results']
         entry_url = results
         exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first()
         exam_url = exam.url
 
-
+        return render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam)
 
 
         #return redirect('/index')#render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam)
 
 
     exam_url = exam.url
-    form = '9th';exam.batch
-
+    form = '9th'
     return render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam, form=form)
+
 
 if __name__ == "__main__":
     app.run()

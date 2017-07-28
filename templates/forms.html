@@ -39,7 +39,7 @@
         <div class="card text-center">
 
 {{movie}}
-                 {% if (results == '9th' or results == '10th') and movie == '10th' %}
+                 {% if (results == '9th' or results == '10th') %}
                    {% include "matric-form.html" %}
                  {% elif entry.batch == 'FA/FSc.' or results == 'FA/FSc.'%}
                    {% include "college-form.html" %}
@@ -47,9 +47,9 @@
                    {% include "undegraduate-form.html" %}
                  {% elif entry.batch == 'MA/MSc.' or results == 'MA/MSc.'%}
                    {% include "graduate-form.html" %}
-        {% endif %}
+{% else %}
           <p class="text-danger">Result Form currently not avaialble</p>
-
+        {% endif %}
 
    <div style="display: table">
      <div style="display: table-row">
@@ -84,7 +84,7 @@
          <hr>
          <div class="card-text">
            <div class="form-group">
-             <form  method="post">
+             <form method="post">
                <label for="result">
                      <input type="hidden" name="exam-result"/>
                      <b>Look Up:</b>
