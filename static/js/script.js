@@ -11,14 +11,14 @@ $(document).ready(function() {
   var school_name = '';
   var query = '';
 
-  $("input[name='student']").val();
-  // keyup(function() {
-    // student_name = $(this).val().toUpperCase();
-  // }); // can add .keyup() for live results
+  $("input[name='student']").keyup(function() {
 
-  $("input[name='father']").val();
-    // father_name = $(this).val().toUpperCase();
-  // });
+    student_name = $(this).val().toUpperCase();
+  }); // can add .keyup() for live results
+
+  $("input[name='father']").keyup(function() {
+    father_name = $(this).val().toUpperCase();
+  });
 
   // roll number
   $("input[name='roll']").keyup(function() {
@@ -27,6 +27,8 @@ $(document).ready(function() {
   $("input[name='school']").keyup(function() {
     school_name = $(this).val().toUpperCase();
   });
+
+
 
 
   // High School matric exam results
@@ -46,6 +48,7 @@ $(document).ready(function() {
       query: query,
     });
     $('#result-data').empty();
+
     return false;
   });
 
@@ -111,8 +114,41 @@ $(document).ready(function() {
         query: "select A, C, D, E, F, G, H where A=" + parseInt(roll_number),
       });
       $('#result-data').empty();
+      console.log(query);
       return false;
     });
+
+
+    $("#selects").click(function () {
+      $("input[name='student']").keyup(function() {
+
+        student_name = $(this).val().toUpperCase();
+      }); // can add .keyup() for live results
+
+      $("input[name='father']").keyup(function() {
+        father_name = $(this).val().toUpperCase();
+      });
+
+      $('#result-data').sheetrock({
+        url: mySpreadsheet,
+        query: "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"",
+      });
+      $('#result-data').empty();
+      console.log(query);
+    });
+
+    $("#select").click(function () {
+      $("input[name='roll']").keyup(function() {
+        roll_number = $(this).val();
+      });
+      $('#result-data').sheetrock({
+        url: mySpreadsheet,
+        query: "select A, C, D, E, F, G, H where A=" + parseInt(roll_number),
+      });
+      $('#result-data').empty();
+
+    });
+
 
 
 });
