@@ -119,34 +119,39 @@ $(document).ready(function() {
     });
 
 
-    $("#selects").click(function () {
-      $("input[name='student']").keyup(function() {
+function getResult(query) {
 
-        student_name = $(this).val().toUpperCase();
-      }); // can add .keyup() for live results
+  $('#result-data').sheetrock({
+    url: mySpreadsheet,
+    query: query,//"select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"",
+  });
+  $('#result-data').empty();
+  console.log(query);
+}
+    $("#search-name").click(function () {
+        student_name = $("input[name='student']").val().toUpperCase();
+        father_name = $("input[name='father']").val().toUpperCase();
+        query = "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"";
+        getResult(query);
+    });
 
-      $("input[name='father']").keyup(function() {
-        father_name = $(this).val().toUpperCase();
-      });
+    $("#roll-search").click(function () {
+        roll_number =   $("input[name='roll']").val();
+        query = "select A, C, D, E, F, G, H where A=" + parseInt(roll_number);
+        getResult(query);
+        alert("im");
+
+    });
+
+    $("#institute-search").click(function () {
+      $("input[name='school']").val();
 
       $('#result-data').sheetrock({
         url: mySpreadsheet,
-        query: "select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"",
+        query: "select A, C, D, E, F, G, H where G like '%" + college_name + "%'",
       });
       $('#result-data').empty();
       console.log(query);
-    });
-
-    $("#select").click(function () {
-      $("input[name='roll']").keyup(function() {
-        roll_number = $(this).val();
-      });
-      $('#result-data').sheetrock({
-        url: mySpreadsheet,
-        query: "select A, C, D, E, F, G, H where A=" + parseInt(roll_number),
-      });
-      $('#result-data').empty();
-
     });
 
 
