@@ -1,21 +1,31 @@
 var mySpreadsheet;
+var student_name, father_name, roll_number, school_name, query;
 
+// receives url from database
 function result_data(exam) {
   mySpreadsheet = exam + '#gid=0';
 }
 $(document).ready(function() {
 
-  //'https://docs.google.com/spreadsheets/d/1UuEJr1ITmVAjBrQMtIkUchpl6b-42JfFbJp4QFxCS74/edit?usp=sharing#gid=0';
-  var student_name, father_name, roll_number, school_name, query;
+  // Compile the Handlebars template for HR leaders.
+var toppersTemplate = Handlebars.compile($('#toppers-template').html());
+
+// Load top five HR leaders.
+$('#hr').sheetrock({
+  url: mySpreadsheet,
+  query: "select A, C, D, E, F, G, H where E is not null order by E desc",
+  fetchSize: 5,
+  rowTemplate: toppersTemplate
+});
 
   function getResult(query) {
 
     $('#result-data').sheetrock({
       url: mySpreadsheet,
-      query: query, //"select A, C, D, E, F, G, H where C=" + "\"" + student_name + "\" and D=" + "\"" + father_name + "\"",
+      query: query
     });
     $('#result-data').empty();
-    console.log(query);
+
   }
   $("#search-name").click(function() {
     student_name = $("input[name='student']").val().toUpperCase();

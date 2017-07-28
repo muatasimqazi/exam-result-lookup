@@ -17,7 +17,7 @@
           <div class="card-text">
             {% raw %}
             <ol id="hr">
-              <script id="hr-template" type="text/x-handlebars-template">
+              <script id="toppers-template" type="text/x-handlebars-template">
                 <li>
                   <strong>{{cells.Name}}</strong>, {{cells.FatherName}}, {{cells.RollNo}}, {{cells.Marks}}
                 </li>
@@ -30,15 +30,14 @@
       <hr class="hidden-sm-up">
     </div>
 <div class="col-12 col-sm-12 col-md-8 primary-bg">
-<h5 class="card-title text-center text-danger">Search results for
-  {% if results == '9th' or results == '10th' and entry.batch == '9th' or entry.batch == '10th' %} <b>Matric</b>
-  {% else %}
-  <b>{{exam.batch}}</b> {% endif %}({{exam.term}} {{exam.year}})  examination</h5>
+<!-- <p class="card-title text-center text-danger">Search results for <b>{{exam.batch}}</b> ({{exam.term}} {{exam.year}})  examination</p> -->
 
 
         <div class="card text-center">
+          <div class="card-header text-center">
+            <p class="card-title text-center">Search results for <b>{{exam.batch}}</b> ({{exam.term}} {{exam.year}})  examination</p>
 
-{{movie}}
+</div>
                  {% if (results == '9th' or results == '10th') %}
                    {% include "matric-form.html" %}
                  {% elif entry.batch == 'FA/FSc.' or results == 'FA/FSc.'%}
