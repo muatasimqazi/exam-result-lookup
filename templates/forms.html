@@ -12,7 +12,7 @@
       <br><br>
       <div class="card">
         <div class="card-block">
-          <h5 class="card-title">{{entry.batch}} ({{entry.term}} {{entry.year}}) Top Scorers:</h5>
+          <h5 class="card-title">{{exam.batch}} ({{exam.term}} {{exam.year}}) Top Scorers:</h5>
           <hr>
           <div class="card-text">
             {% raw %}
@@ -31,24 +31,25 @@
     </div>
 <div class="col-12 col-sm-12 col-md-8 primary-bg">
 <h5 class="card-title text-center text-danger">Search results for
-  {% if results %}
-  <b>{{results}}</b>
-  {% elif entry.batch == '9th' or entry.batch == '10th' %} <b>Matric</b>
+  {% if results == '9th' or results == '10th' and entry.batch == '9th' or entry.batch == '10th' %} <b>Matric</b>
   {% else %}
-  <b>{{entry.batch}}</b> ({{entry.term}} {{entry.year}}) {% endif %} examination</h5>
+  <b>{{exam.batch}}</b> {% endif %}({{exam.term}} {{exam.year}})  examination</h5>
 
-      <div class="card text-center">
-         {% if entry.batch == '9th' or entry.batch == '10th' or results == 'Matric' %}
-           {% include "matric-form.html" %}
-         {% elif entry.batch == 'FA/FSc.' or results == 'FA/FSc'%}
-           {% include "college-form.html" %}
-         {% elif entry.batch == 'BA/BSc.' or results == 'BA/BSc'%}
-           {% include "undegraduate-form.html" %}
-         {% elif entry.batch == 'MA/MSc.' or results == 'MA/MSc'%}
-           {% include "graduate-form.html" %}
-        {% else %}
-        <p class="text-danger">Result Form currently not avaialble</p>
-   {% endif %}
+
+        <div class="card text-center">
+
+{{movie}}
+                 {% if (results == '9th' or results == '10th') and movie == '10th' %}
+                   {% include "matric-form.html" %}
+                 {% elif entry.batch == 'FA/FSc.' or results == 'FA/FSc.'%}
+                   {% include "college-form.html" %}
+                 {% elif entry.batch == 'BA/BSc.' or results == 'BA/BSc.'%}
+                   {% include "undegraduate-form.html" %}
+                 {% elif entry.batch == 'MA/MSc.' or results == 'MA/MSc.'%}
+                   {% include "graduate-form.html" %}
+        {% endif %}
+          <p class="text-danger">Result Form currently not avaialble</p>
+
 
    <div style="display: table">
      <div style="display: table-row">
@@ -83,7 +84,7 @@
          <hr>
          <div class="card-text">
            <div class="form-group">
-             <form action="/" method="post">
+             <form  method="post">
                <label for="result">
                      <input type="hidden" name="exam-result"/>
                      <b>Look Up:</b>
@@ -92,10 +93,11 @@
                  <div class="col-9 col-sm-9 col-lg-8">
                    <select name="results" class="form-control">
                        <option value="{{entry.batch}}" selected>{{entry.batch}}</option>
-                       <option value="Matric">Matric</option>
-                       <option value="FA/FSc">FA/FSc.</option>
-                       <option value="BA/BSc">BA/BSc.</option>
-                       <option value="MA/MSc">MA/MSc.</option>
+                       <option value="9th">9th</option>
+                       <option value="10th">10th</option>
+                       <option value="FA/FSc.">FA/FSc.</option>
+                       <option value="BA/BSc.">BA/BSc.</option>
+                       <option value="MA/MSc.">MA/MSc.</option>
                      </select>
                  </div>
 

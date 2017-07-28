@@ -201,28 +201,30 @@ def create_newpost():
 @app.route('/index', methods=['POST', 'GET'])
 def index():
 
-    results = ''
-    exam_ninth = Entry.query.filter_by(batch='9th').order_by(Entry.date.desc()).first_or_404()
-    exam_tenth = Entry.query.filter_by(batch='10th').order_by(Entry.date.desc()).first_or_404()
-    exam_fa_fsc = Entry.query.filter_by(batch='FA/FSc.').order_by(Entry.date.desc()).first_or_404()
-    exam_ba_bsc = Entry.query.filter_by(batch='BA/BSc.').order_by(Entry.date.desc()).first_or_404()
-    exam_ma_msc = Entry.query.filter_by(batch='MA/MSc.').order_by(Entry.date.desc()).first_or_404()
-
-    exam_results = [exam_ninth, exam_tenth, exam_fa_fsc, exam_ba_bsc, exam_ma_msc]
-    if request.method == 'POST':
-        form_a = request.form['exam-result']
-        results = request.form['results']
 
     entry = Entry.query.order_by(Entry.date.desc()).first()
-    exam = {
-    "ninth": exam_ninth.url,
-    "tenth": exam_tenth.url,
-    "fa_fsc": exam_fa_fsc.url,
-    "ba_bsc": exam_ba_bsc.url,
-    "ma_msc": exam_ma_msc.url,
+    entry_url = entry.batch
 
-    }
-    return render_template('index.html', results=results, exam_results=exam_results, entry=entry, exam=exam)
+    exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first()
+
+    results = entry.batch
+
+    if request.method == 'POST':
+        results = request.form['results']
+        entry_url = results
+        exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first()
+        exam_url = exam.url
+
+
+
+
+        #return redirect('/index')#render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam)
+
+
+    exam_url = exam.url
+    form = '9th';exam.batch
+
+    return render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam, form=form)
 
 if __name__ == "__main__":
     app.run()

@@ -12,7 +12,7 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div class="tab-pane active" id="student-father" role="tabpanel">
-      <form class="graduate-form">
+      <form class="graduate-forms">
         <div class="form-group text-left">
           <label for="student"><b>Student Name</b></label>
           <input type="text" name="student" class="form-control" id="student" placeholder="Name" required>
@@ -21,13 +21,15 @@
           <label for="father"><b>Father Name</b></label>
           <input type="text" class="form-control" id="father-name" name="father" placeholder="Father's Name" required>
         </div>
+        <input type="hidden" name="form" value="MA/MSc."/>
         <input type="submit" class="btn btn-primary float-right college-btn" value="Look Up" />
+        <label>
+
       </form>
       <br>
 
     </div>
     <div class="tab-pane" id="roll" role="tabpanel">
-
       <form class="university-form">
         <div class="form-group text-left">
           <label for="roll"><b>Roll No.</b></label>
@@ -36,8 +38,5 @@
         <input type="submit" class="btn btn-primary float-right college-btn" value="Look Up" />
       </form>
     </div>
-
-
-
   </div>
 </div>

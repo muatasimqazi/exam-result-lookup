@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-
-<p id="mytag1"></p>
-<p id="mytag2"></p>
 <br>
 <div class="card card-inverse card-success mb-3 text-center">
   <div class="card-block">
@@ -17,16 +14,10 @@
 {% include "forms.html" %}
 <br><br>
 {% endblock %}
-
 {% block codes %}
-
-<script>
-var exam = {{ exam | tojson }};
-// console.log(data);
-  // alert(data.ninth)
-
-  //  result_data('{{ exam_results[0].url }}');
-  result_data(exam);
+<script src="{{ url_for('static', filename='js/script.js')}}"></script>
+<script type="text/javascript">
+  result_data('{{exam_url}}');
 </script>
 
 {% endblock %}
