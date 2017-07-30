@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://azadi-app:password@loca
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
-app.secret_key = 'X68tVVWRUg5b^qd'
+app.secret_key = 'X68tVVWRUg5b^q&3k2'
 
 class Entry(db.Model):
 
@@ -202,29 +202,22 @@ def create_newpost():
 def page_not_found(e):
     return render_template('404.html'), 404
 
-
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/index', methods=['POST', 'GET'])
 def index():
 
     entry = Entry.query.order_by(Entry.date.desc()).first()
     entry_url = entry.batch
-
     exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first()
-
-    results = entry.batch #request.args.get('results')
+    results = entry.batch
 
     if request.method == 'POST':
-        results = request.form['results'] #request.form['results']
+        results = request.form['results']
         entry_url = results
         exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first_or_404()
         exam_url = exam.url
 
         return render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam)
-
-
-        #return redirect('/index')#render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam)
-
 
     exam_url = exam.url
     form = '9th'
