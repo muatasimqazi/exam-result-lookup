@@ -5,11 +5,11 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://azadi-app:password@localhost:8889/azadi-app'
-app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://flask_azadi:password@localhost:8889/flask_azadi_app'
+# app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
-app.secret_key = 'X68tVVWRUg5b^q&3k2'
+app.secret_key = 'X68tVVWRUg5b^qd'
 
 class Entry(db.Model):
 
@@ -48,24 +48,25 @@ class User(db.Model):
 def require_login():
     allowed_routes = ['index', 'login', 'signup', 'static']
     if request.endpoint not in allowed_routes and 'username' not in session:
-        return redirect('/login')
+        return redirect('/apps/login')
 
-@app.route('/entry', methods=['post', 'get'])
 @app.route('/admin', methods=['post', 'get'])
 def admin():
 
     delete = ''
     entry = ''
+    if 'username' not in session:
+        return redirect('/apps/login')
+
     if request.args.get('edit'):
         entry_id = request.args.get('edit')
-        return redirect('/admin/edit?id=' + entry_id)
+        return redirect('/apps/admin/edit?id=' + entry_id)
     elif request.args.get('delete'):
         entry_id = request.args.get('delete')
         delete_entry = Entry.query.filter_by(id=entry_id).first();
         db.session.delete(delete_entry)
         db.session.commit();
-    if 'username' not in session:
-        return redirect('/login')
+
 
 
     entry_id = request.args.get('id')
@@ -91,7 +92,7 @@ def edit():
         udpated_entry.year = request.form['entry-year']
         udpated_entry.url = request.form['entry-url']
         db.session.commit()
-        return redirect('/admin')
+        return redirect('/apps/admin')
 
     return render_template('edit.html', entry=entry)
 
@@ -120,7 +121,7 @@ def signup():
                 db.session.add(new_user)
                 db.session.commit()
                 session['username'] = username
-                return  redirect('/admin')
+                return  redirect('/apps/admin')
             else:
                 error = "Username already exists"
         return render_template('signup.html', error=error)
@@ -140,7 +141,7 @@ def login():
         if user:
             if user.password == password:
                 session['username'] = username
-                return redirect('/admin')
+                return redirect('/apps/admin')
 
             if user.password != password :
                 password_error = 'Incorrect password'
@@ -155,7 +156,7 @@ def login():
 @app.route('/logout')
 def logout():
     del session['username']
-    return redirect('/')
+    return redirect('/apps')
 
 @app.route('/new-result', methods=['GET', 'POST'])
 def create_newpost():
@@ -173,7 +174,7 @@ def create_newpost():
         db.session.add(entry_post)
         db.session.commit()
         entry_id = entry_post.id;
-        return redirect("/admin")
+        return redirect("/apps/admin")
 
         if not entry_title:
             error_title = "Please fill in the title"
@@ -208,16 +209,21 @@ def index():
 
     entry = Entry.query.order_by(Entry.date.desc()).first()
     entry_url = entry.batch
+
     exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first()
-    results = entry.batch
+
+    results = entry.batch #request.args.get('results')
 
     if request.method == 'POST':
-        results = request.form['results']
+        results = request.form['results'] #request.form['results']
         entry_url = results
         exam = Entry.query.filter_by(batch=entry_url).order_by(Entry.date.desc()).first_or_404()
         exam_url = exam.url
 
         return render_template('index.html', entry=entry, results=results, exam_url=exam_url, exam=exam)
+
+
+
 
     exam_url = exam.url
     form = '9th'
